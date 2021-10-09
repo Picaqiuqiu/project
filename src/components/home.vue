@@ -67,11 +67,13 @@ export default {
   },
   methods: {
     async doBatch() {
+      // 初始化成功和失败的数组
       this.list = [];
       this.list2 = [];
       let k = 1;
       this.p = 0;
       for (let i = 0; i < this.times; i++) {
+        // 等待处理，将成功或失败的详细结果存入数组
         await this.requestApi().then(
           (res) => {
             res.result = "成功";
@@ -91,6 +93,8 @@ export default {
           }
         );
       }
+
+      // 当批量处理已经完成，跳出提示
       if (this.p >= 100) {
         this.$message({
           message: "批量处理已完成,请在左侧导航栏查看失败原因",
@@ -98,6 +102,8 @@ export default {
         });
       }
     },
+
+    //当导航栏更改，改变isResult显示不同的结果
     changeSelect(val) {
       this.isResult = val;
     },
